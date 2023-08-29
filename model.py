@@ -36,63 +36,6 @@ def get_features(dataframe):
     
     return features
 
-
-def fit_train_score(df, n_est, min_split):    
-    features = get_features(df)
-    
-    # n_estimators = number of decision trees
-    # min_samples_split = higher it is set, the less accurtate it is, the less it will overfit
-    model = RandomForestClassifier(n_estimators=n_est, min_samples_split=min_split, random_state=1)
-
-    train = df.iloc[:-1000]
-    test = df.iloc[-1000:]
-
-    # fit and train model
-    model.fit(train[features], train['Target'])
-    predictions = model.predict(test[features])
-    #predictions_series = pd.Series(predictions, index=test.index)
-
-    # precision of training data
-    predictions_training = model.predict(train[features])
-    
-    test_dict = {
-        'n_estimators':n_est,
-        'min_samples_split':min_split,
-        'training precision':precision_score(train['Target'], predictions_training),
-        'testing precision':precision_score(test['Target'], predictions)
-                }
-    
-    return test_dict
-
-
-def fit_train_score_with_depth(df, n_est, min_split, max_depth):
-    features = get_features(df)
-    
-    # n_estimators = number of decision trees
-    # min_samples_split = higher it is set, the less accurtate it is, the less it will overfit
-    model = RandomForestClassifier(n_estimators=n_est, min_samples_split=min_split, random_state=1)
-
-    train = df.iloc[:-1000]
-    test = df.iloc[-1000:]
-
-    # fit and train model
-    model.fit(train[features], train['Target'])
-    predictions = model.predict(test[features])
-    #predictions_series = pd.Series(predictions, index=test.index)
-
-    # precision of training data
-    predictions_training = model.predict(train[features])
-    
-    test_dict = {
-        'n_estimators':n_est,
-        'min_samples_split':min_split,
-        'max_depth': max_depth,
-        'training precision':precision_score(train['Target'], predictions_training),
-        'testing precision':precision_score(test['Target'], predictions)
-                }
-    
-    return test_dict
-
     # create new features
 df['Range'] = abs(df['High']-df['Low'])
 df['RSI 14'] = ta.rsi(df['Close'], 14)
