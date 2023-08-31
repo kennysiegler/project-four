@@ -1,15 +1,15 @@
 results_url = 'http://127.0.0.1:5000/api/results'
-backtest = 'https://127.0.0.1:5000/api/backtest'
 
-let results_data = d3.json(results_url).then(function(data) {
-    return data
+let results_info = d3.json(results_url).then(function(results_data) {
+    return results_data
 })
+
 
 function displayName() {
 
-    results_data.then(function(d) {
+    results_info.then(function(d) {
         let sample_size = document.getElementById('sample_size')
-        sample_size.innerText = "Sample Size: " + d['Sample Size']
+        sample_size.innerText = "Sample Size: " + d['Training Sample Size']
 
         let model_type = document.getElementById('model_type')
         model_type.innerText = "Model Type: " + d['Model Type']
@@ -21,7 +21,7 @@ function displayName() {
         training_precision.innerText = "Training Precision: " + (d['Training Precision'] * 100).toFixed(2) +"%"
        
         let testing_precision = document.getElementById('testing_precision')
-        testing_precision.innerText = "Model Type: " + (d['Testing Precision'] * 100).toFixed(2)+'%'
+        testing_precision.innerText = "Testing Precision: " + (d['Testing Precision'] * 100).toFixed(2)+'%'
 
         let prediction = document.getElementById('prediction')
         if (d['Prediction'] == 1) {
@@ -37,4 +37,7 @@ function displayName() {
     })
 }
 
+
+
 displayName()
+
