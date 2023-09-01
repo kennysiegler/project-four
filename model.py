@@ -223,7 +223,7 @@ test_dict = fit_train_score_with_depth(merged_df, n_estimators, min_samples_spli
 ###  backtest_predictions.to_csv('results/backtest_data.csv')
 # merged_df.to_csv('results/merged_data.csv')
 candlestick_df.to_csv('results/candlestick_data.csv')
-final_day = most_recent.index
+final_day = most_recent.index[0]
 
 
 

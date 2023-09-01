@@ -25,16 +25,17 @@ function displayName() {
 
         let prediction = document.getElementById('prediction')
         if (d['Prediction'] == 1) {
-            prediction.innerText = "Our Model Suggests that you buy tomorrow when the market opens and sell when it closes"
+            prediction.innerText = `Our model Suggests that you buy on the market day after ${d['Final Day']} when the market opens and sell when it closes`
         } else if (d['Prediction'] == 0) {
-            prediction.innerText = "Our Model Suggests that you should not buy tomorrow when the market opens and sell when it closes"
+            prediction.innerText = `Our Model Suggests that you should not buy on the market day after ${d['Final Day']} when the market opens and sell when it closes`
         } else {
             prediction.innerText = "We have an invalid variable in our Prediction field"
         }
 
-
+        console.log(d)
 
     })
+    
 }
 
 

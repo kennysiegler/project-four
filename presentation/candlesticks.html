@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
         <script src="https://d3js.org/d3.v7.min.js"></script>
-
+        <script src="https://cdn.plot.ly/plotly-2.25.2.min.js" charset="utf-8"></script>
         
 
 
@@ -17,9 +17,12 @@
     </head>
     <body>
         <h1>Click <a href="index.html">here</a> to go back to the results page</h1>
-        <select id="selDataset" onchange="optionChanged(this.value)">
+        
+        <select id="selDataset" onchange="yearSelected(this.value)">
             <option>Select an option</option>
           </select>
+          <div id="backtest"></div>
+          <div id="candlestickGraph"></div>
         <script src="candlesticks.js" async defer></script>
     </body>
 </html>

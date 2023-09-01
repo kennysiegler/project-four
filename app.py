@@ -14,7 +14,7 @@ CORS(app)
 def createCandlestickDictionary():
     # l should be passed as a list, it will be equivalent to the row
     candlesticks = {}
-    for i in range(2000,2024):
+    for i in range(2009,2024):
         candlesticks[str(i)] = {"dates": [], "open": [], "high": [], "low": [], "close": [], "volume": []}    
     return candlesticks
         
@@ -27,7 +27,10 @@ def display_result():
         "Model Size": f"{n_estimators} Layers",
         "Training Precision": test_dict['training precision'],
         "Testing Precision": test_dict['testing precision'],
-        "Prediction": int(todays_prediction[0])
+        "Prediction": int(todays_prediction[0]),
+        "Final Day": str(final_day)[:10]
+        
+
 
     }
     return data_dict
@@ -60,7 +63,7 @@ def displayCandlestick():
         candlestick_reader = csv.reader(file, delimiter=',', quotechar='|')
         next(candlestick_reader)
         for row in candlestick_reader:
-           for i in range(2000,2024):
+           for i in range(2009,2024):
                 if row[0][:4] == str(i):
                 
                     candlesticks[str(i)]['dates'].append(row[0])
@@ -69,7 +72,7 @@ def displayCandlestick():
                     candlesticks[str(i)]['low'].append(row[3])
                     candlesticks[str(i)]['close'].append(row[4])
                     candlesticks[str(i)]['volume'].append(row[5])
-        print(candlesticks)
+        
         return candlesticks
     
     
