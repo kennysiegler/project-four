@@ -2,7 +2,7 @@ candlesticks = 'http://127.0.0.1:5000/api/candlestick'
 backtest = 'http://127.0.0.1:5000/api/backtest'
 
 
-let backtest_info = d3.json(backtest).then(function(backtest_data) {
+d3.json(backtest).then(function(backtest_data) {
     loadBacktestData(backtest_data)
 
 })
@@ -12,6 +12,7 @@ d3.json(candlesticks).then(function(candlestick_data) {
     // console.log(candlestick_data)
         loadData(candlestick_data)
 })
+
 function loadData(data) {
     for (i in data) {
         const x = document.getElementById('selDataset')
@@ -80,14 +81,16 @@ function yearSelected(year) {
 }
 
 function loadBacktestData(data) {
+    count = 1
     for (i in data) {
         // Target the backtest div
        var div = document.getElementById('backtest')
        // Create a paragraph tag
        var p = document.createElement('p')
-       var count = 1
+       
        p.innerHTML = "<p id=timeframe"+count +" style='line-height:.5'>" + "Our accuracy score for " + i + " was " + data[i] + "%</p>"
-       count = count++
+       count = count+1
+       
        
        div.appendChild(p) // add the <p> element to the div 
        document.body.appendChild(div)
