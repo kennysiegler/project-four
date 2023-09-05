@@ -37,3 +37,4 @@ Kenny Siegler, Ed Shanks, Hannah Weber
 ## Resources
 Yahoo Finance API - https://pypi.org/project/yfinance/ 
 Plotly Demo Candlestick - https://plotly.com/python/candlestick-charts/ 
+Stock Market Prediction w/ Machine Learning  - https://www.youtube.com/watch?v=1O_BenficgE 
