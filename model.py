@@ -13,6 +13,7 @@ from functools import reduce
 from sklearn.model_selection import GridSearchCV
 
 #######################################################################################​
+# pulls stock data from yfinance module
 def get_data(ticker, year,month,day):
     start = dt.datetime(1999,1,1)
     end = dt.datetime.now()
@@ -58,7 +59,8 @@ df['RSI 14'] = ta.rsi(df['Close'], 14)
 # remove adjusted close column
 del df['Adj Close']
 
-# Oil
+# add feautres to Oil data
+# uses Pandas TA (technical analysis) module to generate indicators like ATR, MOM, and RSI
 oil_df['Oil Range'] = abs(oil_df['High']-oil_df['Low'])
 oil_df['Oil ATR'] = ta.atr(oil_df['High'], oil_df['Low'], oil_df['Close'] )
 oil_df['Oil Up'] = (oil_df['Close'] > oil_df['Open']).astype(int)
@@ -73,7 +75,7 @@ del oil_df['High']
 del oil_df['Low']
 del oil_df['Volume']
 del oil_df['Adj Close']
-# Gold
+# add features to Gold data
 gold_df['Gold Range'] = abs(gold_df['High']-gold_df['Low'])
 gold_df['Gold ATR'] = ta.atr(gold_df['High'], gold_df['Low'], gold_df['Close'] )
 gold_df['Gold Up'] = (gold_df['Close'] > gold_df['Open']).astype(int)
@@ -127,7 +129,7 @@ merged_df
 
 
 #####################################################################################################
-# functions for backtesting
+# generates predictions which will be used in backtesting
 def predict(train, test, features, model):
     model.fit(train[features], train["Target"])
     preds = model.predict(test[features])
@@ -135,6 +137,9 @@ def predict(train, test, features, model):
     combined = pd.concat([test["Target"], preds], axis=1)
     return combined
 
+# performs backtesting for model
+# loops through historical data, splits test/train data, calcultes precision score for given test data
+# each test dataset is roughly one year
 def backtest(df, model, features, start=2500, step=250):
     all_predictions = []
     backtest_data = []
@@ -170,6 +175,8 @@ print(backtest_predictions)
 
 #######################################################################################################
 # function for making daily prediction
+# 1 = buy
+# 0 = don't buy
 def daily_prediction(df,model,most_recent): 
     features = get_features(df)
     train = df.iloc[:-1000]
